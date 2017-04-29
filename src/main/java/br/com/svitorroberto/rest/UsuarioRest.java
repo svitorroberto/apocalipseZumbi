@@ -49,4 +49,24 @@ public class UsuarioRest {
 		return Response.status(201).entity(result).build();
 	}
 	
+	@POST
+	@Path("/cadastrar")
+	@Consumes("application/json")
+	public Response atualizarUltimaLocalizacaoUsuario(Usuario usuario) {
+ 
+		UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+		String result = usuarioNegocio.atualizarLocalizacao(usuario);
+		return Response.status(201).entity(result).build();
+	}
+	
+	@POST
+	@Path("/reportar/{id}")
+	@Consumes("application/json")
+	public Response reportarUsuarioContaminado(@PathParam("id")Long id) {
+ 
+		UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+		String result = usuarioNegocio.reportarUsuario(id);
+		return Response.status(201).entity(result).build();
+	}
+	
 }

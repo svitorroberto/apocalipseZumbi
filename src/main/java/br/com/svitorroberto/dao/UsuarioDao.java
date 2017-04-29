@@ -52,6 +52,18 @@ public class UsuarioDao {
 	        }
 			
 		}
+		
+		public void atualizarUsuario(Usuario usuario){
+			try {
+				entityManager.getTransaction().begin();
+				entityManager.merge(usuario);
+				entityManager.getTransaction().commit();
+			} catch (Exception ex) {
+	            ex.printStackTrace();
+	            entityManager.getTransaction().rollback();
+	        }
+			
+		}
 
 		public Collection<Usuario> getAll() {
 			Collection<Usuario> usuarios = new ArrayList<Usuario>();
@@ -61,5 +73,16 @@ public class UsuarioDao {
 					return new ArrayList<Usuario>();
 				}
 			return usuarios;
+		}
+
+		public Usuario atualizarLocalizacao(Usuario usuario) {
+			try{
+				entityManager.getTransaction().begin();
+				entityManager.merge(usuario);
+				entityManager.getTransaction().commit();
+			}catch (NoResultException e) {
+				e.printStackTrace();
+			}
+			return usuario;
 		}
 }

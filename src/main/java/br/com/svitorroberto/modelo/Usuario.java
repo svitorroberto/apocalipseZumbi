@@ -28,15 +28,17 @@ public class Usuario {
 	@Column(name="infectado")
 	private char isInfectado;
 	
-
+	@Column(name="reportado")
+	private int qtdReportado;
 	
-	public Usuario(Long id, String nome,int idade,char sexo,String ultimaLocalizacao,char isInfectado){
+	public Usuario(Long id, String nome,int idade,char sexo,String ultimaLocalizacao,char isInfectado, int qtdReportado){
 		this.id = id;
 		this.nome = nome;
 		this.idade = idade;
 		this.sexo = sexo;
 		this.ultimaLocalizacao = ultimaLocalizacao;
 		this.isInfectado = isInfectado;
+		this.qtdReportado = qtdReportado;
 	}
 	
 	public Usuario(Long id){
@@ -92,6 +94,14 @@ public class Usuario {
 
 	public void setIsInfectado(char isInfectado) {
 		this.isInfectado = isInfectado;
+	}
+
+	public int getQtdReportado() {
+		return qtdReportado;
+	}
+
+	public void setQtdReportado(int qtdReportado) {
+		this.qtdReportado = qtdReportado;
 	}
 
 	
