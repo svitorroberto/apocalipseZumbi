@@ -5,6 +5,10 @@
 	<persistence-unit name="ApocalipseZumbi">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
+		<class>br.com.svitorroberto.modelo.Usuario</class>
+		<class>br.com.svitorroberto.modelo.Inventario</class>
+		<class>br.com.svitorroberto.modelo.Item</class>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/zumbi" />
