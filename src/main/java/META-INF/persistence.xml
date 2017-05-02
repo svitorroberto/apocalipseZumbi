@@ -8,6 +8,7 @@
 		<class>br.com.svitorroberto.modelo.Usuario</class>
 		<class>br.com.svitorroberto.modelo.Inventario</class>
 		<class>br.com.svitorroberto.modelo.Item</class>
+		<class>br.com.svitorroberto.modelo.Report</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

@@ -9,6 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 import br.com.svitorroberto.modelo.Item;
+import br.com.svitorroberto.modelo.Usuario;
 
 public class ItemDao {
 
@@ -40,9 +41,6 @@ public class ItemDao {
 		
 		public void salvarItem(Item item){
 			try {
-				String f2 = String.valueOf(entityManager.createQuery("select max(id) from Item").getSingleResult());
-				Long codigo = Long.valueOf(f2)+1L;
-				item.setId(codigo);
 				entityManager.getTransaction().begin();
 				entityManager.persist(item);
 				entityManager.getTransaction().commit();
@@ -60,6 +58,16 @@ public class ItemDao {
 				}catch (NoResultException e) {
 					return new ArrayList<Item>();
 				}
+			return items;
+		}
+		
+		public Collection<Item> getItensPorUsuario(Usuario usuario) {
+			Collection<Item> items = new ArrayList<Item>();
+			try{
+				items = (Collection<Item>) entityManager.createQuery("SELECT c from Item c").getResultList();
+			}catch (NoResultException e) {
+				return new ArrayList<Item>();
+			}
 			return items;
 		}
 }

@@ -16,7 +16,7 @@ public class UsuarioDao {
 		protected EntityManager entityManager;
 		 
 	    public UsuarioDao() {
-	        entityManager = getEntityManager();
+	    	entityManager = getEntityManager();
 	    }
 		
 		private EntityManager getEntityManager() {
@@ -38,19 +38,16 @@ public class UsuarioDao {
 			return usuario;
 		}
 		
-		public void salvarUsuario(Usuario usuario){
+		public String salvarUsuario(Usuario usuario){
 			try {
-				String f2 = String.valueOf(entityManager.createQuery("select max(id) from Usuario").getSingleResult());
-				Long codigo = Long.valueOf(f2)+1L;
-				usuario.setId(codigo);
 				entityManager.getTransaction().begin();
 				entityManager.persist(usuario);
 				entityManager.getTransaction().commit();
 			} catch (Exception ex) {
-	            ex.printStackTrace();
 	            entityManager.getTransaction().rollback();
+	            return "Erro";
 	        }
-			
+			return "Salvo com sucesso";
 		}
 		
 		public void atualizarUsuario(Usuario usuario){
@@ -85,4 +82,43 @@ public class UsuarioDao {
 			}
 			return usuario;
 		}
+
+		public Collection<Usuario> getUsuariosInfectados() {
+			Collection<Usuario> usuarios = new ArrayList<Usuario>();
+			try{
+				usuarios = (Collection<Usuario>) entityManager.createQuery("SELECT c from Usuario c WHERE c.isInfectado = 'S'").getResultList();
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			return usuarios;
+		}
+
+		public Long getPontosPerdidos() {
+			Long pontos = null;
+			try{
+				pontos =  (Long) entityManager.createQuery("SELECT sum(i.pontos) from Inventario v inner join v.usuario u inner join v.item i WHERE u.isInfectado = 'S'").getSingleResult();
+			}catch (Exception e) {
+					e.printStackTrace();
+				}
+			return pontos;
+		}
+		
+		public Double getQtdUsuarioAtivos(){
+			return Double.valueOf( (Long)entityManager.createQuery("SELECT COUNT(c) from Usuario c WHERE c.isInfectado = 'N'").getSingleResult());
+		}
+		
+		public ArrayList<Double> mediaItemPorUsuario(){
+			ArrayList<Double> quantidades = new ArrayList<>();
+			try{
+				for(Long i=1L;i<5;i++){
+					quantidades.add( Double.valueOf( (Long)entityManager.createQuery("SELECT COUNT(DISTINCT u.id) from Inventario v inner join v.usuario u inner join v.item i WHERE u.isInfectado = 'N' AND i.id = :item").setParameter("item", i).getSingleResult()));
+				}
+			}catch (Exception e) {
+					e.printStackTrace();
+				}
+			return quantidades;
+		}
+		
+		
+		
 }

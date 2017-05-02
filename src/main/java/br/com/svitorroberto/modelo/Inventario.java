@@ -2,7 +2,11 @@ package br.com.svitorroberto.modelo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -10,13 +14,16 @@ import javax.persistence.Table;
 public class Inventario {
 
 	@Id
+	@GeneratedValue
 	@Column(name="id")
 	private Long id;
 	
-	@Column(name="id_usuario")
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_usuario")
 	private Usuario usuario;
 	
-	@Column(name="id_item")
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_item")
 	private Item item;
 
 	public Inventario() {
@@ -25,6 +32,11 @@ public class Inventario {
 	
 	public Inventario(Long id){
 		this.id = id;
+	}
+	
+	public Inventario(Item item, Usuario usuario){
+		this.item = item;
+		this.usuario = usuario;
 	}
 	
 	public Long getId() {

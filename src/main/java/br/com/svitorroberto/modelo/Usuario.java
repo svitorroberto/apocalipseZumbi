@@ -2,6 +2,7 @@ package br.com.svitorroberto.modelo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 public class Usuario {
 	
 	@Id
+	@GeneratedValue
 	@Column(name="id")
 	private Long id;
 	
@@ -28,19 +30,19 @@ public class Usuario {
 	@Column(name="infectado")
 	private char isInfectado;
 	
-	@Column(name="reportado")
-	private int qtdReportado;
-	
-	public Usuario(Long id, String nome,int idade,char sexo,String ultimaLocalizacao,char isInfectado, int qtdReportado){
-		this.id = id;
+	public Usuario(String nome,int idade,char sexo,String ultimaLocalizacao){
 		this.nome = nome;
 		this.idade = idade;
 		this.sexo = sexo;
 		this.ultimaLocalizacao = ultimaLocalizacao;
-		this.isInfectado = isInfectado;
-		this.qtdReportado = qtdReportado;
+		this.isInfectado = 'N';
 	}
 	
+	public Usuario(Long id, String ultimaLocalizacao){
+		this.id = id;
+		this.ultimaLocalizacao = ultimaLocalizacao;
+	}
+
 	public Usuario(Long id){
 		this.id = id;
 	}
@@ -96,13 +98,4 @@ public class Usuario {
 		this.isInfectado = isInfectado;
 	}
 
-	public int getQtdReportado() {
-		return qtdReportado;
-	}
-
-	public void setQtdReportado(int qtdReportado) {
-		this.qtdReportado = qtdReportado;
-	}
-
-	
 }
