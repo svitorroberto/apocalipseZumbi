@@ -1,8 +1,8 @@
 # API REST ApocalipseZumbi
 
-## FunÃ§Ãµes
+## Funções
 
-**Cadastrar UsuÃ¡rio**
+**Cadastrar Usuário**
 ----
   Returns json data about the oparation.
 
@@ -48,7 +48,7 @@
       }
     });
   ```
-**Atualizar Ãšltima LocalizaÃ§Ã£o**
+**Atualizar última Localização**
 ----
   Returns json data about the oparation.
 
@@ -92,7 +92,7 @@
       }
     });
   ```
-  **Marcar usuÃ¡rio como infectado**
+  **Marcar usuário como infectado**
 ----
   Returns json data about the oparation.
 
@@ -180,7 +180,7 @@
       }
     });
   ```
-**Adicionar itens do inventÃ¡rio de um usuÃ¡rio**
+**Adicionar itens do inventário de um usuário**
 ----
   Returns json data about the oparation.
 
@@ -210,7 +210,7 @@
 * **Error Response:**
 
   * **Code:** 417 EXPECTATION FAILED <br />
-    **Content:** `{AÃ§Ã£o invÃ¡lida}`
+    **Content:** `{Ação inválida}`
 
 * **Sample Call:**
 
@@ -224,7 +224,7 @@
       }
     });
   ```
-  **Adicionar itens do inventÃ¡rio de um usuÃ¡rio**
+  **Adicionar itens do inventário de um usuário**
 ----
   Returns json data about the oparation.
 
@@ -254,7 +254,7 @@
 * **Error Response:**
 
   * **Code:** 417 EXPECTATION FAILED <br />
-    **Content:** `{AÃ§Ã£o invÃ¡lida}` `{Item nÃ£o disponÃ­vel no inventÃ¡rio}`
+    **Content:** `{Ação inválida}` `{Item não disponível no inventário}`
 
 * **Sample Call:**
 
