@@ -39,6 +39,13 @@ public class UsuarioRest {
 		return (ArrayList<Usuario>) usuarioNegocio.recuperarTodos();
 	}
 	
+	/**
+	 * @param nome
+	 * @param sexo
+	 * @param idade
+	 * @param loc
+	 * @return
+	 */
 	@GET
 	@Path("/cadastrar/{nome}/{sexo}/{idade}/{loc}")
 	@Consumes("application/json")
@@ -48,6 +55,11 @@ public class UsuarioRest {
 		return result == "Salvo com sucesso" ? Response.status(201).entity(result).build() : Response.status(417).entity(result).build();
 	}
 
+	/**
+	 * @param id
+	 * @param loc
+	 * @return
+	 */
 	@GET
 	@Path("/atualizarLocalizacao/{id}/{loc}")
 	@Consumes("application/json")
@@ -56,6 +68,11 @@ public class UsuarioRest {
 		return result == "Localizacao atualizada" ? Response.status(200).entity(result).build() : Response.status(417).entity(result).build();
 	}
 	
+	/**
+	 * @param id
+	 * @param idReporter
+	 * @return
+	 */
 	@GET
 	@Path("/reportar/{id}/{idReporter}")
 	@Produces("application/json")
@@ -64,6 +81,10 @@ public class UsuarioRest {
 		return result == "Localizacao atualizada" ? Response.status(200).entity(result).build() : Response.status(417).entity(result).build();
 	}
 	
+	/**
+	 * @return
+	 * Relatório 1
+	 */
 	@GET
 	@Path("/infectados")
 	@Produces("application/json")
@@ -72,6 +93,10 @@ public class UsuarioRest {
 		return Response.status(200).entity(result).build();
 	}
 	
+	/**
+	 * @return
+	 * Relatório 2
+	 */
 	@GET
 	@Path("/naoInfectados")
 	@Produces("application/json")
@@ -80,6 +105,10 @@ public class UsuarioRest {
 		return Response.status(201).entity(result).build();
 	}
 	
+	/**
+	 * @return
+	 * Relatório 3
+	 */
 	@GET
 	@Path("/mediaItens")
 	@Produces("application/json")
@@ -88,6 +117,11 @@ public class UsuarioRest {
 		return Response.status(200).entity(result).build();
 	}
 	
+	/**
+	 * @return
+	 * 
+	 * Relatório 4
+	 */
 	@GET
 	@Path("/pontosPerdidos")
 	@Produces("application/json")
