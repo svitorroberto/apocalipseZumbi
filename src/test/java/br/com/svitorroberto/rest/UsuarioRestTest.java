@@ -22,7 +22,7 @@ import br.com.svitorroberto.business.UsuarioNegocio;
 import br.com.svitorroberto.modelo.Usuario;
 
 /**
- * @author Vítor Roberto
+ * @author Vï¿½tor Roberto
  *
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -58,7 +58,7 @@ public class UsuarioRestTest extends BaseResourceTest {
 		request.addFormHeader("ultimaLocalizacao", "-16.6930378,-49.2476555");
 
 		ArgumentCaptor<Usuario> usuarioCaptor = ArgumentCaptor.forClass(Usuario.class);
-		when(repository.salvar(usuarioCaptor.capture())).thenAnswer(new Answer<Usuario>());
+//		when(repository.salvar(usuarioCaptor.capture())).thenAnswer(new Answer<Usuario>());
 
 		MockHttpResponse response = new MockHttpResponse();
 		dispatcher.invoke(request, response);

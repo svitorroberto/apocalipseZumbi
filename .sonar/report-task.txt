@@ -1,5 +1,5 @@
 projectKey=ApocalipseZumbi
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/ApocalipseZumbi
-ceTaskId=AVvKA4HdFVVI0VBx2a3J
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVvKA4HdFVVI0VBx2a3J
+ceTaskId=AVvLh75OFVVI0VBx2a3L
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVvLh75OFVVI0VBx2a3L
