@@ -92,3 +92,47 @@
       }
     });
   ```
+  **Marcar usuário como infectado**
+----
+  Returns json data about the oparation.
+
+* **URL**
+
+  /restreportar/{idInfectado}/{idReporter}
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+  `idInfectado=[integer]`
+  `idInfectado=[integer]`
+
+* **Data Params**
+
+   `None`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{Sucesso}`
+ 
+* **Error Response:**
+
+  * **Code:** 417 EXPECTATION FAILED <br />
+    **Content:** `{Erro}`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/rest/usuarios/reportar/3/4",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
