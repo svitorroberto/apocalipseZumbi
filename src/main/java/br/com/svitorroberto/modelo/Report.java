@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * @author Vítor Roberto
+ * @author Vï¿½tor Roberto
  *
  */
 @Entity
@@ -31,6 +31,7 @@ public class Report {
 	private Usuario reporter;
 
 	public Report() {
+		// Construtor vazio
 	}
 
 	/**

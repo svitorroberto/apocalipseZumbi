@@ -2,6 +2,7 @@ package br.com.svitorroberto.rest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 import javax.ws.rs.Consumes;
 
@@ -22,7 +23,7 @@ import br.com.svitorroberto.modelo.Item;
 import br.com.svitorroberto.modelo.Usuario;
 
 /**
- * @author Vítor Roberto
+ * @author Vï¿½tor Roberto
  *
  */
 @Path("/inventarios")
@@ -36,7 +37,7 @@ public class InventarioRest {
 	@GET
 	@Path("/get")
 	@Produces("application/json")
-	public ArrayList<Inventario> listarInventarios() {
+	public Collection<Inventario> listarInventarios() {
 		return (ArrayList<Inventario>) inventarioNegocio.recuperarTodos();
 	}
 
@@ -84,16 +85,13 @@ public class InventarioRest {
 	public Response realizarEscambo(@PathParam("idPessoa1") Long idPessoa1, @PathParam("idPessoa2") Long idPessoa2,
 			@PathParam("itens1") String itens1, @PathParam("itens2") String itens2) {
 		ArrayList<String> itensPessoa1 = new ArrayList<>(Arrays.asList(itens1.split(",")));
+		
 		ArrayList<Item> item1 = new ArrayList<>();
-		itensPessoa1.forEach(i -> {
-			item1.add(new Item(Long.valueOf(i)));
-		});
+		itensPessoa1.stream().map(Long::valueOf).map(Item::new).forEach(item1::add);
 		ArrayList<String> itensPessoa2 = new ArrayList<>(Arrays.asList(itens2.split(",")));
 		ArrayList<Item> item2 = new ArrayList<>();
-		;
-		itensPessoa2.forEach(i -> {
-			item2.add(new Item(Long.valueOf(i)));
-		});
+		itensPessoa2.stream().map(Long::valueOf).map(Item::new).forEach(item2::add);
+
 		String result = inventarioNegocio.realizarEscambo(new Escambo(new Usuario(idPessoa1), item1),
 				new Escambo(new Usuario(idPessoa2), item2));
 		return result == "Escambo realizado com sucesso" ? Response.status(200).entity(result).build()

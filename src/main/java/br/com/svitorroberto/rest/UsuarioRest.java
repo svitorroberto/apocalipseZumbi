@@ -1,6 +1,7 @@
 package br.com.svitorroberto.rest;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.ws.rs.Consumes;
 
@@ -20,7 +21,7 @@ import br.com.svitorroberto.dao.UsuarioDao;
 import br.com.svitorroberto.modelo.Usuario;
 
 /**
- * @author Vítor Roberto
+ * @author Vï¿½tor Roberto
  *
  */
 @Path("/usuarios")
@@ -35,7 +36,7 @@ public class UsuarioRest {
 	@GET
 	@Path("/get")
 	@Produces("application/json")
-	public ArrayList<Usuario> listarUsuarios() {
+	public Collection<Usuario> listarUsuarios() {
 		return (ArrayList<Usuario>) usuarioNegocio.recuperarTodos();
 	}
 	
@@ -83,7 +84,7 @@ public class UsuarioRest {
 	
 	/**
 	 * @return
-	 * Relatório 1
+	 * Relatï¿½rio 1
 	 */
 	@GET
 	@Path("/infectados")
@@ -95,7 +96,7 @@ public class UsuarioRest {
 	
 	/**
 	 * @return
-	 * Relatório 2
+	 * Relatï¿½rio 2
 	 */
 	@GET
 	@Path("/naoInfectados")
@@ -107,7 +108,7 @@ public class UsuarioRest {
 	
 	/**
 	 * @return
-	 * Relatório 3
+	 * Relatï¿½rio 3
 	 */
 	@GET
 	@Path("/mediaItens")
@@ -120,7 +121,7 @@ public class UsuarioRest {
 	/**
 	 * @return
 	 * 
-	 * Relatório 4
+	 * Relatï¿½rio 4
 	 */
 	@GET
 	@Path("/pontosPerdidos")

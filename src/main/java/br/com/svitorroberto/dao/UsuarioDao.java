@@ -2,6 +2,7 @@ package br.com.svitorroberto.dao;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,113 +13,165 @@ import br.com.svitorroberto.modelo.Usuario;
 
 public class UsuarioDao {
 
-	//Com entityManager	
-		protected EntityManager entityManager;
-		 
-	    public UsuarioDao() {
-	    	entityManager = getEntityManager();
-	    }
-		
-		private EntityManager getEntityManager() {
-	        EntityManagerFactory factory = Persistence.createEntityManagerFactory("ApocalipseZumbi");
-	        if (entityManager == null) {
-	            entityManager = factory.createEntityManager();
-	        }
-	 
-	        return entityManager;
-	    }
-		
-		public Usuario getUsuarioById(Long id){
-			Usuario usuario = new Usuario();
-			try{
-			 usuario = (Usuario) entityManager.createQuery("SELECT c from Usuario c where c.id = :id").setParameter("id", id).getSingleResult();
-			}catch (NoResultException e) {
-				return new Usuario();
+	private static final Logger LOGGER = Logger.getLogger(UsuarioDao.class.getName());
+
+	// Com entityManager
+	protected EntityManager entityManager;
+
+	public UsuarioDao() {
+		entityManager = getEntityManager();
+	}
+
+	private EntityManager getEntityManager() {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ApocalipseZumbi");
+		if (entityManager == null) {
+			entityManager = factory.createEntityManager();
+		}
+
+		return entityManager;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Usuario getUsuarioById(Long id) {
+		Usuario usuario = new Usuario();
+		try {
+			usuario = (Usuario) entityManager.createQuery("SELECT c from Usuario c where c.id = :id")
+					.setParameter("id", id).getSingleResult();
+		} catch (NoResultException e) {
+			LOGGER.info(e);
+			return new Usuario();
+		}
+		return usuario;
+	}
+
+	/**
+	 * 
+	 * @param usuario
+	 * @return
+	 */
+	public String salvarUsuario(Usuario usuario) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(usuario);
+			entityManager.getTransaction().commit();
+		} catch (Exception ex) {
+			LOGGER.info(ex);
+			entityManager.getTransaction().rollback();
+			return "Erro";
+		}
+		return "Salvo com sucesso";
+	}
+
+	/**
+	 * 
+	 * @param usuario
+	 */
+	public void atualizarUsuario(Usuario usuario) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.merge(usuario);
+			entityManager.getTransaction().commit();
+		} catch (Exception ex) {
+			LOGGER.info(ex);
+			entityManager.getTransaction().rollback();
+		}
+
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Collection<Usuario> getAll() {
+		Collection<Usuario> usuarios = new ArrayList<>();
+		try {
+			usuarios = (Collection<Usuario>) entityManager.createQuery("SELECT c from Usuario c").getResultList();
+		} catch (NoResultException e) {
+			LOGGER.info(e);
+			return new ArrayList<>();
+		}
+		return usuarios;
+	}
+
+	/**
+	 * 
+	 * @param usuario
+	 * @return
+	 */
+	public Usuario atualizarLocalizacao(Usuario usuario) {
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.merge(usuario);
+			entityManager.getTransaction().commit();
+		} catch (NoResultException e) {
+			LOGGER.info(e);
+			e.printStackTrace();
+		}
+		return usuario;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Collection<Usuario> getUsuariosInfectados() {
+		Collection<Usuario> usuarios = new ArrayList<>();
+		try {
+			usuarios = (Collection<Usuario>) entityManager
+					.createQuery("SELECT c from Usuario c WHERE c.isInfectado = 'S'").getResultList();
+		} catch (Exception e) {
+			LOGGER.info(e);
+		}
+		return usuarios;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Long getPontosPerdidos() {
+		Long pontos = null;
+		try {
+			pontos = (Long) entityManager
+					.createQuery(
+							"SELECT sum(i.pontos) from Inventario v inner join v.usuario u inner join v.item i WHERE u.isInfectado = 'S'")
+					.getSingleResult();
+		} catch (Exception e) {
+			LOGGER.info(e);
+		}
+		return pontos;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Double getQtdUsuarioAtivos() {
+		return Double.valueOf((Long) entityManager
+				.createQuery("SELECT COUNT(c) from Usuario c WHERE c.isInfectado = 'N'").getSingleResult());
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Collection<Double> mediaItemPorUsuario() {
+		ArrayList<Double> quantidades = new ArrayList<>();
+		try {
+			for (Long i = 1L; i < 5; i++) {
+				quantidades.add(Double.valueOf((Long) entityManager
+						.createQuery(
+								"SELECT COUNT(DISTINCT u.id) from Inventario v inner join v.usuario u inner join v.item i WHERE u.isInfectado = 'N' AND i.id = :item")
+						.setParameter("item", i).getSingleResult()));
 			}
-			return usuario;
+		} catch (Exception e) {
+			LOGGER.info(e);
 		}
-		
-		public String salvarUsuario(Usuario usuario){
-			try {
-				entityManager.getTransaction().begin();
-				entityManager.persist(usuario);
-				entityManager.getTransaction().commit();
-			} catch (Exception ex) {
-	            entityManager.getTransaction().rollback();
-	            return "Erro";
-	        }
-			return "Salvo com sucesso";
-		}
-		
-		public void atualizarUsuario(Usuario usuario){
-			try {
-				entityManager.getTransaction().begin();
-				entityManager.merge(usuario);
-				entityManager.getTransaction().commit();
-			} catch (Exception ex) {
-	            ex.printStackTrace();
-	            entityManager.getTransaction().rollback();
-	        }
-			
-		}
+		return quantidades;
+	}
 
-		public Collection<Usuario> getAll() {
-			Collection<Usuario> usuarios = new ArrayList<Usuario>();
-			try{
-				usuarios = (Collection<Usuario>) entityManager.createQuery("SELECT c from Usuario c").getResultList();
-				}catch (NoResultException e) {
-					return new ArrayList<Usuario>();
-				}
-			return usuarios;
-		}
-
-		public Usuario atualizarLocalizacao(Usuario usuario) {
-			try{
-				entityManager.getTransaction().begin();
-				entityManager.merge(usuario);
-				entityManager.getTransaction().commit();
-			}catch (NoResultException e) {
-				e.printStackTrace();
-			}
-			return usuario;
-		}
-
-		public Collection<Usuario> getUsuariosInfectados() {
-			Collection<Usuario> usuarios = new ArrayList<Usuario>();
-			try{
-				usuarios = (Collection<Usuario>) entityManager.createQuery("SELECT c from Usuario c WHERE c.isInfectado = 'S'").getResultList();
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-			return usuarios;
-		}
-
-		public Long getPontosPerdidos() {
-			Long pontos = null;
-			try{
-				pontos =  (Long) entityManager.createQuery("SELECT sum(i.pontos) from Inventario v inner join v.usuario u inner join v.item i WHERE u.isInfectado = 'S'").getSingleResult();
-			}catch (Exception e) {
-					e.printStackTrace();
-				}
-			return pontos;
-		}
-		
-		public Double getQtdUsuarioAtivos(){
-			return Double.valueOf( (Long)entityManager.createQuery("SELECT COUNT(c) from Usuario c WHERE c.isInfectado = 'N'").getSingleResult());
-		}
-		
-		public ArrayList<Double> mediaItemPorUsuario(){
-			ArrayList<Double> quantidades = new ArrayList<>();
-			try{
-				for(Long i=1L;i<5;i++){
-					quantidades.add( Double.valueOf( (Long)entityManager.createQuery("SELECT COUNT(DISTINCT u.id) from Inventario v inner join v.usuario u inner join v.item i WHERE u.isInfectado = 'N' AND i.id = :item").setParameter("item", i).getSingleResult()));
-				}
-			}catch (Exception e) {
-					e.printStackTrace();
-				}
-			return quantidades;
-		}
-		
-		
-		
 }

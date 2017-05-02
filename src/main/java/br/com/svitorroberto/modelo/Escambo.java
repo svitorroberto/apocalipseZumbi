@@ -1,10 +1,9 @@
 package br.com.svitorroberto.modelo;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * @author Vítor Roberto
+ * @author Vï¿½tor Roberto
  *
  */
 public class Escambo {
@@ -17,12 +16,13 @@ public class Escambo {
 	 * @param cambista
 	 * @param itens
 	 */
-	public Escambo(Usuario cambista, ArrayList<Item> itens) {
+	public Escambo(Usuario cambista, Collection<Item> itens) {
 		this.cambista = cambista;
 		this.itens = itens;
 	}
 
 	public Escambo() {
+		// Construtor vazio
 	}
 
 	public Usuario getCambista() {

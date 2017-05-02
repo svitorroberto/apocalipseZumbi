@@ -9,7 +9,7 @@ import br.com.svitorroberto.modelo.Report;
 import br.com.svitorroberto.modelo.Usuario;
 
 /**
- * @author VÌtor Roberto
+ * @author VÔøΩtor Roberto
  *
  */
 public class UsuarioNegocio {
@@ -57,7 +57,6 @@ public class UsuarioNegocio {
 				return "Usuario esta infectado. Operacao invalida";
 			} else {
 				usuario2.setUltimaLocalizacao(usuario.getUltimaLocalizacao());
-				UsuarioDao usuarioDao = new UsuarioDao();
 				usuarioDao.atualizarLocalizacao(usuario2);
 				return "Localizacao atualizada";
 			}
@@ -110,20 +109,14 @@ public class UsuarioNegocio {
 	public String mediaItemPorUsuario() {
 		ArrayList<Double> quantidades = usuarioDao.mediaItemPorUsuario();
 		Double qtdUsuarios = usuarioDao.getQtdUsuarioAtivos();
-
+		String[] array = {"√Ågua", "Comida", "Rem√©dio", "Muni√ß√£o"}; 
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
-		sb.append("¡gua:");
-		sb.append(quantidades.get(0) / qtdUsuarios);
-		sb.append(", ");
-		sb.append("Comida:");
-		sb.append(quantidades.get(1) / qtdUsuarios);
-		sb.append(", ");
-		sb.append("RemÈdio:");
-		sb.append(quantidades.get(2) / qtdUsuarios);
-		sb.append(", ");
-		sb.append("MuniÁ„o:");
-		sb.append(quantidades.get(3) / qtdUsuarios);
+		for(int i=0; i<quantidades.size();i++){
+			sb.append(array[i]+":");
+			sb.append(quantidades.get(0) / qtdUsuarios);
+			sb.append(", ");
+		}
 		sb.append("}");
 
 		return sb.toString();

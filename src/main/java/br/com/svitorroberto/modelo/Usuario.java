@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Vítor Roberto
+ * @author Vï¿½tor Roberto
  *
  */
 @Entity
@@ -64,6 +64,7 @@ public class Usuario {
 	}
 
 	public Usuario() {
+		// Construtor vazio
 	}
 
 	public Long getId() {

@@ -12,7 +12,7 @@ import br.com.svitorroberto.modelo.Item;
 import br.com.svitorroberto.modelo.Usuario;
 
 /**
- * @author Vítor Roberto
+ * @author Vï¿½tor Roberto
  *
  */
 public class InventarioNegocio {
@@ -28,7 +28,7 @@ public class InventarioNegocio {
 	 */
 	public String adicinarItemNoInventario(Item item, Usuario usuario) {
 		if (inventarioValido(new Inventario(item, usuario)) && validarSeTemItens(new Inventario(item, usuario))) {
-			return "Ação inválida";
+			return "Aï¿½ï¿½o invï¿½lida";
 		} else {
 			inventarioDao.salvarNoInventario(new Inventario(item, usuario));
 			return "Item incluido com sucesso";
@@ -43,12 +43,12 @@ public class InventarioNegocio {
 	 */
 	public String removerItemNoInventario(Item item, Usuario usuario) {
 		if (inventarioValido(new Inventario(item, usuario))) {
-			return "Ação inválida";
+			return "Aï¿½ï¿½o invï¿½lida";
 		} else {
 			ArrayList<Inventario> itens = (ArrayList<Inventario>) inventarioDao
 					.buscarNoInventario(new Inventario(item, usuario));
 			if (itens.isEmpty()) {
-				return "Item não disponível no inventário";
+				return "Item nï¿½o disponï¿½vel no inventï¿½rio";
 			} else {
 				inventarioDao.removerDoInventario(itens.get(0));
 				return "Item removido com sucesso";
@@ -85,12 +85,12 @@ public class InventarioNegocio {
 		}
 		for (Item item : solicitante.getItens()) {
 			if (inventarioValido(new Inventario(item, solicitante.getCambista()))) {
-				return "Usuário não possui estes itens no inventário";
+				return "Usuï¿½rio nï¿½o possui estes itens no inventï¿½rio";
 			}
 		}
 		for (Item item : aceitador.getItens()) {
 			if (inventarioValido(new Inventario(item, aceitador.getCambista()))) {
-				return "Usuário não possui estes itens no inventário";
+				return "Usuï¿½rio nï¿½o possui estes itens no inventï¿½rio";
 			}
 		}
 		operarItens(true, solicitante.getItens(), aceitador.getCambista());
@@ -136,9 +136,7 @@ public class InventarioNegocio {
 		if (inserir) {
 			itens.forEach(i -> inventarioDao.salvarNoInventario(new Inventario(new Item(i.getId()), usuario)));
 		} else {
-			itens.forEach(i -> {
-				removerItemNoInventario(new Item(i.getId()), usuario);
-			});
+			itens.forEach(i -> removerItemNoInventario(new Item(i.getId()), usuario));
 		}
 	}
 
@@ -149,7 +147,7 @@ public class InventarioNegocio {
 	 */
 	private boolean validarSeTemItens(Inventario inventario) {
 		ArrayList<Inventario> inventarios = inventarioDao.buscarNoInventario(inventario);
-		return inventarios.size() == 0;
+		return inventarios.isEmpty();
 	}
 
 	public InventarioDao getInventarioDao() {
