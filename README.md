@@ -1,5 +1,15 @@
 # API REST ApocalipseZumbi
 
+## Setup do sistema
+* **Clonar o projeto (git clone)**
+* **Importar no Eclipse como Existing Maven Project**
+* **Subir o sistema em um servidor de aplicação (WildFly)**
+* **Executar script do banco para criar tabelas (Postgres)**
+* **Alterar configurações do persistence.xml de acordo com seu banco**
+* **Cadastre-se no sistema para fugir dos zumbis ~~e seja feliz~~**
+* **OBS: url do sistema http://localhost:8100/ApocalipseZumbi**
+
+
 ## Funções
 
 **Cadastrar Usuário**
