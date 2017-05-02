@@ -48,6 +48,7 @@
       }
     });
   ```
+  
 **Atualizar última Localização**
 ----
   Returns json data about the oparation.
@@ -92,6 +93,7 @@
       }
     });
   ```
+  
   **Marcar usuário como infectado**
 ----
   Returns json data about the oparation.
@@ -136,6 +138,7 @@
       }
     });
   ```
+  
   **Adicionar itens do inventÃ¡rio de um usuÃ¡rio**
 ----
   Returns json data about the oparation.
@@ -180,6 +183,7 @@
       }
     });
   ```
+  
 **Adicionar itens do inventário de um usuário**
 ----
   Returns json data about the oparation.
@@ -224,6 +228,7 @@
       }
     });
   ```
+  
   **Adicionar itens do inventário de um usuário**
 ----
   Returns json data about the oparation.
@@ -268,6 +273,7 @@
       }
     });
   ```
+  
   **Escambo de bens**
 ----
   Returns json data about the oparation.
@@ -307,6 +313,169 @@
   ```javascript
     $.ajax({
       url: "/rest/inventarios/6/2/escambo/4/3,4",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+**Relatório 1**
+----
+  Returns Porcentagem de usuários infectados
+
+* **URL**
+
+  /rest/usuarios/infectados
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+  `None`
+
+
+* **Data Params**
+
+   `None`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{Porcentagem de pessoas contaminadas}`
+ 
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/rest/usuarios/infectados",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+  
+  **Relatório 2**
+----
+  Returns Porcentagem de usuários não infectados
+
+* **URL**
+
+  /rest/usuarios/naoInfectados
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+  `None`
+
+
+* **Data Params**
+
+   `None`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{Porcentagem de pessoas não contaminadas}`
+ 
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/rest/usuarios/naoInfectados",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+  
+  **Relatório 3**
+----
+  Returns Quantidade média de cada tipo de item por usuário (águas/usuário, comidas/usuário, etc)
+
+* **URL**
+
+  /rest/usuarios/mediaItens
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+  `None`
+
+
+* **Data Params**
+
+   `None`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{Porcentagem de cada item por usuário}`
+ 
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/rest/usuarios/mediaItens",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+  
+  **Relatório 4**
+----
+  Returns Número de pontos perdidos por usuários infectados
+
+* **URL**
+
+  /rest/usuarios/pontosPerdidos
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+  `None`
+
+
+* **Data Params**
+
+   `None`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{Número de pontos perdidos por usuários infectados}`
+ 
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/rest/usuarios/pontosPerdidos",
       dataType: "json",
       type : "GET",
       success : function(r) {
