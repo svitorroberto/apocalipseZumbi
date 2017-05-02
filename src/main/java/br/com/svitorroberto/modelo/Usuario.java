@@ -6,50 +6,66 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author Vítor Roberto
+ *
+ */
 @Entity
-@Table(name="usuario")
+@Table(name = "usuario")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name = "id")
 	private Long id;
-	
-	@Column(name="nome")
+
+	@Column(name = "nome")
 	private String nome;
-	
-	@Column(name="idade")
+
+	@Column(name = "idade")
 	private int idade;
-	
-	@Column(name="sexo")
+
+	@Column(name = "sexo")
 	private char sexo;
-	
-	@Column(name="localizacao")
+
+	@Column(name = "localizacao")
 	private String ultimaLocalizacao;
 
-	@Column(name="infectado")
+	@Column(name = "infectado")
 	private char isInfectado;
-	
-	public Usuario(String nome,int idade,char sexo,String ultimaLocalizacao){
+
+	/**
+	 * 
+	 * @param nome
+	 * @param idade
+	 * @param sexo
+	 * @param ultimaLocalizacao
+	 */
+	public Usuario(String nome, int idade, char sexo, String ultimaLocalizacao) {
 		this.nome = nome;
 		this.idade = idade;
 		this.sexo = sexo;
 		this.ultimaLocalizacao = ultimaLocalizacao;
 		this.isInfectado = 'N';
 	}
-	
-	public Usuario(Long id, String ultimaLocalizacao){
+
+	/**
+	 * 
+	 * @param id
+	 * @param ultimaLocalizacao
+	 */
+	public Usuario(Long id, String ultimaLocalizacao) {
 		this.id = id;
 		this.ultimaLocalizacao = ultimaLocalizacao;
 	}
 
-	public Usuario(Long id){
+	public Usuario(Long id) {
 		this.id = id;
 	}
 
-	public Usuario(){
+	public Usuario() {
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

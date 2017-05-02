@@ -19,11 +19,19 @@ import br.com.svitorroberto.business.UsuarioNegocio;
 import br.com.svitorroberto.dao.UsuarioDao;
 import br.com.svitorroberto.modelo.Usuario;
 
+/**
+ * @author Vítor Roberto
+ *
+ */
 @Path("/usuarios")
 public class UsuarioRest {
 	private UsuarioNegocio usuarioNegocio;
 	UsuarioDao usuarioDao;
 
+	/**
+	 * 
+	 * @return
+	 */
 	@GET
 	@Path("/get")
 	@Produces("application/json")

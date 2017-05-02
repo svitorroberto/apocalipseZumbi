@@ -9,36 +9,49 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * @author Vítor Roberto
+ *
+ */
 @Entity
-@Table(name="inventario")
+@Table(name = "inventario")
 public class Inventario {
 
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name = "id")
 	private Long id;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="id_usuario")
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="id_item")
+	@JoinColumn(name = "id_item")
 	private Item item;
 
 	public Inventario() {
-		
+
 	}
-	
-	public Inventario(Long id){
+
+	/**
+	 * 
+	 * @param id
+	 */
+	public Inventario(Long id) {
 		this.id = id;
 	}
-	
-	public Inventario(Item item, Usuario usuario){
+
+	/**
+	 * 
+	 * @param item
+	 * @param usuario
+	 */
+	public Inventario(Item item, Usuario usuario) {
 		this.item = item;
 		this.usuario = usuario;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -62,6 +75,5 @@ public class Inventario {
 	public void setItem(Item item) {
 		this.item = item;
 	}
-	
-	
+
 }

@@ -11,11 +11,21 @@ import br.com.svitorroberto.modelo.Inventario;
 import br.com.svitorroberto.modelo.Item;
 import br.com.svitorroberto.modelo.Usuario;
 
+/**
+ * @author Vítor Roberto
+ *
+ */
 public class InventarioNegocio {
 	InventarioDao inventarioDao;
 	UsuarioDao usuarioDao;
 	ItemDao itemDao;
 
+	/**
+	 * 
+	 * @param item
+	 * @param usuario
+	 * @return
+	 */
 	public String adicinarItemNoInventario(Item item, Usuario usuario) {
 		if (inventarioValido(new Inventario(item, usuario)) && validarSeTemItens(new Inventario(item, usuario))) {
 			return "Ação inválida";
@@ -25,6 +35,12 @@ public class InventarioNegocio {
 		}
 	}
 
+	/**
+	 * 
+	 * @param item
+	 * @param usuario
+	 * @return
+	 */
 	public String removerItemNoInventario(Item item, Usuario usuario) {
 		if (inventarioValido(new Inventario(item, usuario))) {
 			return "Ação inválida";
@@ -40,14 +56,29 @@ public class InventarioNegocio {
 		}
 	}
 
+	/**
+	 * 
+	 * @param inventario
+	 * @return
+	 */
 	public Inventario recuperarPorId(Inventario inventario) {
 		return inventarioDao.getInventarioById(inventario.getId());
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Collection<Inventario> recuperarTodos() {
 		return inventarioDao.getAll();
 	}
 
+	/**
+	 * 
+	 * @param solicitante
+	 * @param aceitador
+	 * @return
+	 */
 	public String realizarEscambo(Escambo solicitante, Escambo aceitador) {
 		if (!escamboValido(solicitante.getItens(), aceitador.getItens())) {
 			return "Quantidade de pontos totais precisam ser iguais";
@@ -70,15 +101,24 @@ public class InventarioNegocio {
 		return "Escambo realizado com sucesso";
 	}
 
+	/**
+	 * 
+	 * @param inventario
+	 * @return
+	 */
 	private Boolean inventarioValido(Inventario inventario) {
 		Item item2 = itemDao.getItemById(inventario.getItem().getId());
 		Usuario usuario2 = usuarioDao.getUsuarioById(inventario.getUsuario().getId());
 
-
-
 		return item2.getId() == null || usuario2.getId() == null || usuario2.getIsInfectado() == 'S';
 	}
 
+	/**
+	 * 
+	 * @param itens1
+	 * @param itens2
+	 * @return
+	 */
 	private Boolean escamboValido(Collection<Item> itens1, Collection<Item> itens2) {
 		Integer pontos1 = itens1.stream().mapToInt(i -> i.getPontos()).sum();
 		Integer pontos2 = itens2.stream().mapToInt(i -> i.getPontos()).sum();
@@ -86,6 +126,12 @@ public class InventarioNegocio {
 		return pontos1 == pontos2;
 	}
 
+	/**
+	 * 
+	 * @param inserir
+	 * @param itens
+	 * @param usuario
+	 */
 	private void operarItens(Boolean inserir, Collection<Item> itens, Usuario usuario) {
 		if (inserir) {
 			itens.forEach(i -> inventarioDao.salvarNoInventario(new Inventario(new Item(i.getId()), usuario)));
@@ -96,11 +142,14 @@ public class InventarioNegocio {
 		}
 	}
 
-	
-
+	/**
+	 * 
+	 * @param inventario
+	 * @return
+	 */
 	private boolean validarSeTemItens(Inventario inventario) {
 		ArrayList<Inventario> inventarios = inventarioDao.buscarNoInventario(inventario);
-		return inventarios.size()==0;
+		return inventarios.size() == 0;
 	}
 
 	public InventarioDao getInventarioDao() {
@@ -126,6 +175,5 @@ public class InventarioNegocio {
 	public void setItemDao(ItemDao itemDao) {
 		this.itemDao = itemDao;
 	}
-	
-	
+
 }

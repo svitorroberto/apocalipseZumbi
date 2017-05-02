@@ -10,37 +10,47 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * @author Newbie
+ * @author Vítor Roberto
  *
  */
 @Entity
-@Table(name="report")
+@Table(name = "report")
 public class Report {
-	
+
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name = "id")
 	private Long id;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="id_usuario_infectado")
+	@JoinColumn(name = "id_usuario_infectado")
 	private Usuario infectado;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="id_usuario_reporter")
+	@JoinColumn(name = "id_usuario_reporter")
 	private Usuario reporter;
 
 	public Report() {
 	}
+
+	/**
+	 * 
+	 * @param id
+	 */
 	public Report(Long id) {
 		this.id = id;
 	}
-	
+
+	/**
+	 * 
+	 * @param infectado
+	 * @param reporter
+	 */
 	public Report(Usuario infectado, Usuario reporter) {
 		this.infectado = infectado;
 		this.reporter = reporter;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -64,5 +74,5 @@ public class Report {
 	public void setReporter(Usuario reporter) {
 		this.reporter = reporter;
 	}
-	
+
 }

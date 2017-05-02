@@ -13,6 +13,10 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import br.com.svitorroberto.dao.UsuarioDao;
 import br.com.svitorroberto.modelo.Usuario;
 
+/**
+ * @author Vítor Roberto
+ *
+ */
 @RunWith(PowerMockRunner.class)
 public class UsuarioNegocioTest {
 
@@ -23,16 +27,22 @@ public class UsuarioNegocioTest {
 
 	EntityManager entityManager = Mockito.mock(EntityManager.class);
 
+	/**
+	 * @throws Exception
+	 */
 	@Test
-	public void deveriaSalvar() throws Exception{
+	public void deveriaSalvar() throws Exception {
 		Mockito.when(usuarioDao.salvarUsuario(Mockito.any(Usuario.class))).thenReturn("OK");
 		PowerMockito.whenNew(UsuarioDao.class).withNoArguments().thenReturn(usuarioDao);
 		UsuarioNegocio negocio = new UsuarioNegocio();
-		
+
 		Assert.assertEquals("OK", negocio.salvar(usuarioMock()));
 	}
-	
-	// @Test
+
+	/**
+	 * @throws Exception
+	 */
+	@Test
 	public void deveriaAtualizarLocalizacaoTest() throws Exception {
 		Mockito.when(usuarioDao.atualizarLocalizacao(Mockito.any(Usuario.class))).thenReturn(usuarioMock());
 		Mockito.when(usuarioDao.getUsuarioById(Mockito.anyLong())).thenReturn(usuarioMock());
@@ -44,7 +54,10 @@ public class UsuarioNegocioTest {
 		Assert.assertEquals(result, "Localizacao atualizada");
 	}
 
-	//@Test
+	/**
+	 * @throws Exception
+	 */
+	@Test
 	public void naoDeveriaAtualizarLocalizacaoTest() throws Exception {
 		PowerMockito.when(usuarioDao.atualizarLocalizacao(Mockito.any(Usuario.class))).thenReturn(usuarioMock2());
 		PowerMockito.when(usuarioDao.getUsuarioById(Mockito.anyLong())).thenReturn(usuarioMock2());
@@ -57,16 +70,24 @@ public class UsuarioNegocioTest {
 		Assert.assertEquals(result, "Usuario esta infectado. Operacao invalida");
 	}
 
-	// @Test
+	/**
+	 * 
+	 * Teste Unitário do método ReportarUsuario
+	 */
+	@Test
 	public void deveriaReportarUsuarioTest() {
 		Mockito.when(usuarioDao.getUsuarioById(Mockito.any(Long.class))).thenReturn(usuarioMock());
 		UsuarioNegocio negocio = new UsuarioNegocio();
-		String result = negocio.reportarUsuario(1L,1L);
+		String result = negocio.reportarUsuario(1L, 1L);
 
 		Assert.assertEquals(result, "Usuario reportado ");
 	}
 
-	// @Test
+	/**
+	 * 
+	 * Teste Unitário do método ReportarEInativarUsuario
+	 */
+	@Test
 	public void deveriaReportarEInativarUsuarioTest() {
 		Mockito.when(usuarioDao.getUsuarioById(Mockito.any(Long.class))).thenReturn(usuarioMock2());
 		UsuarioNegocio negocio = new UsuarioNegocio();

@@ -6,26 +6,34 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author Vítor Roberto
+ *
+ */
 @Entity
-@Table(name="item")
+@Table(name = "item")
 public class Item {
 
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name = "id")
 	private Long id;
-	
-	@Column(name="descricao")
+
+	@Column(name = "descricao")
 	private String descricao;
-	
-	@Column(name="pontos")
+
+	@Column(name = "pontos")
 	private int pontos;
-	
-	public Item(Long id){
+
+	/**
+	 * 
+	 * @param id
+	 */
+	public Item(Long id) {
 		this.id = id;
 	}
-	
-	public Item(){
+
+	public Item() {
 	}
 
 	public Long getId() {
@@ -51,6 +59,5 @@ public class Item {
 	public void setPontos(int pontos) {
 		this.pontos = pontos;
 	}
-	
-	
+
 }
