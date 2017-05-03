@@ -52,7 +52,7 @@ public class ReportDao {
 	 * 
 	 * @param report
 	 */
-	public void salvarReport(Report report) {
+	public String salvarReport(Report report) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(report);
@@ -61,6 +61,7 @@ public class ReportDao {
 			LOGGER.info(ex);
 			entityManager.getTransaction().rollback();
 		}
+		return "Usuario reportado";
 
 	}
 
