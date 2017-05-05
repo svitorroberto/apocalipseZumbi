@@ -48,6 +48,18 @@ public class Usuario {
 		this.ultimaLocalizacao = ultimaLocalizacao;
 		this.isInfectado = 'N';
 	}
+	/**
+	 * 
+	 * @param id
+	 * @param nome
+	 * @param idade
+	 * @param sexo
+	 * @param ultimaLocalizacao
+	 */
+	public Usuario(Long id, String nome, int idade, char sexo, String ultimaLocalizacao) {
+		new Usuario(nome, idade, sexo, ultimaLocalizacao);
+		this.id = id;
+	}
 
 	/**
 	 * 

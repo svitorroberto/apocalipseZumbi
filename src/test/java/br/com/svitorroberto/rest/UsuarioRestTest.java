@@ -1,13 +1,11 @@
 package br.com.svitorroberto.rest;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.*;
 
 import org.jboss.resteasy.mock.MockHttpRequest;
 import org.jboss.resteasy.mock.MockHttpResponse;
-import org.jboss.resteasy.test.BaseResourceTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +14,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
 
 import br.com.svitorroberto.business.UsuarioNegocio;
 import br.com.svitorroberto.modelo.Usuario;
@@ -26,7 +23,7 @@ import br.com.svitorroberto.modelo.Usuario;
  *
  */
 @RunWith(MockitoJUnitRunner.class)
-public class UsuarioRestTest extends BaseResourceTest {
+public class UsuarioRestTest {
 
 	private UsuarioRest resource;
 	@Mock
@@ -37,12 +34,12 @@ public class UsuarioRestTest extends BaseResourceTest {
 		MockitoAnnotations.initMocks(getClass());
 		resource = new UsuarioRest();
 		resource.setUsuarioNegocio(repository);
-		dispatcher.getRegistry().addSingletonResource(resource);
+		//dispatcher.getRegistry().addSingletonResource(resource);
 	}
 
 	@After
 	public void removeResource() {
-		dispatcher.getRegistry().removeRegistrations(UsuarioRest.class);
+		//dispatcher.getRegistry().removeRegistrations(UsuarioRest.class);
 	}
 
 	/**
@@ -61,7 +58,7 @@ public class UsuarioRestTest extends BaseResourceTest {
 //		when(repository.salvar(usuarioCaptor.capture())).thenAnswer(new Answer<Usuario>());
 
 		MockHttpResponse response = new MockHttpResponse();
-		dispatcher.invoke(request, response);
+		//dispatcher.invoke(request, response);
 
 		verify(repository).salvar(any(Usuario.class));
 		Usuario usuario = usuarioCaptor.getValue();

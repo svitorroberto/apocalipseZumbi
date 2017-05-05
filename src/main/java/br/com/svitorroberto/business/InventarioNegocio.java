@@ -27,11 +27,11 @@ public class InventarioNegocio {
 	 * @return
 	 */
 	public String adicinarItemNoInventario(Item item, Usuario usuario) {
-		if (inventarioValido(new Inventario(item, usuario)) && validarSeTemItens(new Inventario(item, usuario))) {
-			return "A��o inv�lida";
-		} else {
+		if (isInventarioValido(new Inventario(item, usuario)) && validarSeTemItens(new Inventario(item, usuario))) {
 			inventarioDao.salvarNoInventario(new Inventario(item, usuario));
 			return "Item incluido com sucesso";
+		} else {
+			return "Ação inválida";
 		}
 	}
 
@@ -42,17 +42,17 @@ public class InventarioNegocio {
 	 * @return
 	 */
 	public String removerItemNoInventario(Item item, Usuario usuario) {
-		if (inventarioValido(new Inventario(item, usuario))) {
-			return "A��o inv�lida";
-		} else {
+		if (isInventarioValido(new Inventario(item, usuario))) {
 			ArrayList<Inventario> itens = (ArrayList<Inventario>) inventarioDao
 					.buscarNoInventario(new Inventario(item, usuario));
 			if (itens.isEmpty()) {
-				return "Item n�o dispon�vel no invent�rio";
+				return "Item não disponível no inventário";
 			} else {
 				inventarioDao.removerDoInventario(itens.get(0));
 				return "Item removido com sucesso";
 			}
+		} else {
+			return "Ação inválida";
 		}
 	}
 
@@ -84,12 +84,12 @@ public class InventarioNegocio {
 			return "Quantidade de pontos totais precisam ser iguais";
 		}
 		for (Item item : solicitante.getItens()) {
-			if (inventarioValido(new Inventario(item, solicitante.getCambista()))) {
+			if (!isInventarioValido(new Inventario(item, solicitante.getCambista()))) {
 				return "Usu�rio n�o possui estes itens no invent�rio";
 			}
 		}
 		for (Item item : aceitador.getItens()) {
-			if (inventarioValido(new Inventario(item, aceitador.getCambista()))) {
+			if (!isInventarioValido(new Inventario(item, aceitador.getCambista()))) {
 				return "Usu�rio n�o possui estes itens no invent�rio";
 			}
 		}
@@ -106,11 +106,11 @@ public class InventarioNegocio {
 	 * @param inventario
 	 * @return
 	 */
-	private Boolean inventarioValido(Inventario inventario) {
+	private Boolean isInventarioValido(Inventario inventario) {
 		Item item2 = itemDao.getItemById(inventario.getItem().getId());
 		Usuario usuario2 = usuarioDao.getUsuarioById(inventario.getUsuario().getId());
 
-		return item2.getId() == null || usuario2.getId() == null || usuario2.getIsInfectado() == 'S';
+		return item2.getId() != null && usuario2.getId() != null && usuario2.getIsInfectado() != 'S';
 	}
 
 	/**
@@ -147,7 +147,7 @@ public class InventarioNegocio {
 	 */
 	private boolean validarSeTemItens(Inventario inventario) {
 		ArrayList<Inventario> inventarios = (ArrayList<Inventario>) inventarioDao.buscarNoInventario(inventario);
-		return inventarios.isEmpty();
+		return !inventarios.isEmpty();
 	}
 
 	public InventarioDao getInventarioDao() {
