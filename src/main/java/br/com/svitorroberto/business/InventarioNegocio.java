@@ -85,12 +85,12 @@ public class InventarioNegocio {
 		}
 		for (Item item : solicitante.getItens()) {
 			if (!isInventarioValido(new Inventario(item, solicitante.getCambista()))) {
-				return "Usu�rio n�o possui estes itens no invent�rio";
+				return "Usuário não possui estes itens no inventário";
 			}
 		}
 		for (Item item : aceitador.getItens()) {
 			if (!isInventarioValido(new Inventario(item, aceitador.getCambista()))) {
-				return "Usu�rio n�o possui estes itens no invent�rio";
+				return "Usuário não possui estes itens no inventário";
 			}
 		}
 		operarItens(true, solicitante.getItens(), aceitador.getCambista());

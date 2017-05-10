@@ -120,6 +120,21 @@ public class InventarioNegocioTest {
 	 * @throws Exception
 	 */
 	@Test
+	public void naoDeveriaRemoverItemNoInventario3() throws Exception {
+		when(itemDao.getItemById(any())).thenReturn(itemMock());
+		when(usuarioDao.getUsuarioById(any())).thenReturn(usuarioMock());
+		when(inventarioDao.buscarNoInventario(any())).thenReturn(new ArrayList<>());
+
+		negocio.removerItemNoInventario(itemMock(), usuarioMock());
+
+		Assert.assertEquals("Item não disponível no inventário",
+				negocio.removerItemNoInventario(itemMock(), usuarioMock()));
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	@Test
 	public void deveriaRecuperarPorId() throws Exception {
 		negocio.recuperarPorId(inventarioMock());
 
@@ -148,9 +163,44 @@ public class InventarioNegocioTest {
 		Assert.assertEquals("Escambo realizado com sucesso", negocio.realizarEscambo(escamboMock(), escamboMock()));
 	}
 
+	/**
+	 * @throws Exception
+	 */
+	@Test
+	public void naoDeveriaRealizarEscambo() throws Exception {
+
+		Assert.assertEquals("Quantidade de pontos totais precisam ser iguais",
+				negocio.realizarEscambo(escamboMock(), new Escambo(usuarioMock(), itensMock2())));
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	@Test
+	public void naoDeveriaRealizarEscambo2() throws Exception {
+		when(itemDao.getItemById(any())).thenReturn(itemMock());
+		when(usuarioDao.getUsuarioById(any())).thenReturn(usuarioMock());
+		when(inventarioDao.buscarNoInventario(any())).thenReturn(collectionMock());
+
+		Assert.assertEquals("Usuário não possui estes itens no inventário",
+				negocio.realizarEscambo(escamboMock(), new Escambo(usuarioMock(), itensMock())));
+	}
+	/**
+	 * @throws Exception
+	 */
+	@Test
+	public void naoDeveriaRealizarEscambo3() throws Exception {
+		when(itemDao.getItemById(any())).thenReturn(new Item());
+		when(usuarioDao.getUsuarioById(any())).thenReturn(usuarioMock());
+		when(inventarioDao.buscarNoInventario(any())).thenReturn(collectionMock());
+		
+		Assert.assertEquals("Usuário não possui estes itens no inventário",
+				negocio.realizarEscambo(escamboMock(), new Escambo(usuarioMock(), itensMock3())));
+	}
+
 	// Mocks
 	private Item itemMock() {
-		return new Item(1L);
+		return new Item(1L, 1);
 	}
 
 	private Usuario usuarioMock() {
@@ -177,4 +227,16 @@ public class InventarioNegocioTest {
 		return inventarios;
 	}
 
+	private Collection<Item> itensMock2() {
+		Collection<Item> inventarios = new ArrayList<>();
+		inventarios.add(itemMock());
+		inventarios.add(itemMock());
+		return inventarios;
+	}
+	
+	private Collection<Item> itensMock3() {
+		Collection<Item> inventarios = new ArrayList<>();
+		inventarios.add(new Item(1));
+		return inventarios;
+	}
 }

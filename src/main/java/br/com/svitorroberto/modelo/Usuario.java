@@ -75,6 +75,11 @@ public class Usuario {
 		this.id = id;
 	}
 
+	public Usuario(Long id, char isInfectado) {
+		this.id = id;
+		this.isInfectado = isInfectado;
+	}
+
 	public Usuario() {
 		// Construtor vazio
 	}

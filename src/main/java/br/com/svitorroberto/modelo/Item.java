@@ -32,11 +32,21 @@ public class Item {
 	public Item(Long id) {
 		this.id = id;
 	}
-
-	public Item() {
-		// Construtor vazio
+	/**
+	 * 
+	 * @param id
+	 */
+	public Item(Long id, int pontos) {
+		this.id = id;
+		this.pontos = pontos;
 	}
 
+	public Item() { // Construtor vazio
+	}
+
+	public Item(int pontos) {
+		this.pontos = pontos;
+	}
 	public Long getId() {
 		return id;
 	}

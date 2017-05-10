@@ -118,7 +118,6 @@ public class UsuarioNegocio {
 			sb.append(", ");
 		}
 		sb.append("}");
-
 		return sb.toString();
 	}
 
