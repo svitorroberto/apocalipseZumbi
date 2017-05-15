@@ -178,12 +178,12 @@ public class InventarioNegocioTest {
 	 */
 	@Test
 	public void naoDeveriaRealizarEscambo2() throws Exception {
-		when(itemDao.getItemById(any())).thenReturn(itemMock());
+		when(itemDao.getItemById(any())).thenReturn(itemMock()).thenReturn(new Item());
 		when(usuarioDao.getUsuarioById(any())).thenReturn(usuarioMock());
 		when(inventarioDao.buscarNoInventario(any())).thenReturn(collectionMock());
 
 		Assert.assertEquals("Usuário não possui estes itens no inventário",
-				negocio.realizarEscambo(escamboMock(), new Escambo(usuarioMock(), itensMock())));
+				negocio.realizarEscambo(escamboMock(), new Escambo(usuarioMock(), itensMock3())));
 	}
 	/**
 	 * @throws Exception
@@ -195,7 +195,14 @@ public class InventarioNegocioTest {
 		when(inventarioDao.buscarNoInventario(any())).thenReturn(collectionMock());
 		
 		Assert.assertEquals("Usuário não possui estes itens no inventário",
-				negocio.realizarEscambo(escamboMock(), new Escambo(usuarioMock(), itensMock3())));
+				negocio.realizarEscambo(escamboMock(), escamboMock()));
+	}
+	
+	@Test
+	public void deveriaTestarGetters() {
+		negocio.getInventarioDao();
+		negocio.getItemDao();
+		negocio.getUsuarioDao();
 	}
 
 	// Mocks

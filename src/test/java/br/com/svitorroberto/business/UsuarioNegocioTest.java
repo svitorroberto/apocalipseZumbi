@@ -1,10 +1,8 @@
 package br.com.svitorroberto.business;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.powermock.api.mockito.PowerMockito.when;
-import static org.powermock.api.mockito.PowerMockito.doCallRealMethod;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -147,15 +145,7 @@ public class UsuarioNegocioTest {
 	
 	@Test
 	public void deveriaTestarGetters() {
-		when(negocio.getReportDao()).thenCallRealMethod();
-		doCallRealMethod().when(negocio).setReportDao(any(ReportDao.class));
-		
-		when(negocio.getUsuarioDao()).thenCallRealMethod();
-		doCallRealMethod().when(negocio).setUsuarioDao(any(UsuarioDao.class));
-		
-		assertEquals("foo", negocio.getReportDao());
-		assertEquals("foo", negocio.getUsuarioDao());
-		
+		negocio.getUsuarioDao();
 	}
 
 	// MOCKS
